@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="./css/style.css">
   </head>
   <body>
+    <script>
+      const xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", "https://oaks.kent.edu/api/v1/collections/193/climate+change", true);
+      xmlhttp.send();
+      console.log(xmlhttp.responseText);
+    </script>
     <header>
       <div class="container">
         <div id="welcome">
