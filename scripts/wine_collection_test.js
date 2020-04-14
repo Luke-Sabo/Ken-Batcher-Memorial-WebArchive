@@ -123,6 +123,13 @@ function search()
 // switch archive being searched, or change tab
 function tab(archiveID, header)
 {
+    // check params have value
+    if (archiveID == null || header == null)
+    {
+        archiveID = staranTab[0];
+        header = staranTab[1];
+    }
+
     // create GET request
     var searchReq = new XMLHttpRequest();
 
