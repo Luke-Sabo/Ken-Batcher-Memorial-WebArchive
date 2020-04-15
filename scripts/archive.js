@@ -5,9 +5,9 @@
 var currentArchiveAddress = 'https://oaks.kent.edu/api/v1/collections/53';
 
 // [archiveID, header]
-var staranTab = [53, 'Debonne Vineyards Documents'];
-var bitonicTab = [4, 'American Abolitionism and Antislavery'];
-var mppTab = [47, 'College of Podiatric Medicine Yearbooks'];
+var staranTab = [53, 'STARAN'];
+var bitonicTab = [4, 'ASPRO'];
+var mppTab = [47, 'MPP'];
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -115,7 +115,7 @@ function search()
     else 
     {
 		const errorMessage = document.createElement('marquee');
-		errorMessage.textContent = 'shits buggin kid. error';
+		errorMessage.textContent = 'Error';
     }
 }
 
@@ -159,6 +159,6 @@ function tab(archiveID, header)
     else 
     {
 		const errorMessage = document.createElement('marquee');
-		errorMessage.textContent = 'shits buggin kid. error';
+		errorMessage.textContent = 'Error';
     }
 }
