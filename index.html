@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="scripts/wine_collection_test.js"></script>
+    <script src="scripts/archive.js"></script>
     <script type="text/javascript">
 
       // wait for the page to load first
@@ -16,19 +16,19 @@
         staran.onclick = function() { 
           localStorage['archiveID'] = staranTab[0];
           localStorage['header'] = staranTab[1];
-          window.location.href = 'wine_table.html';
+          window.location.href = 'archive.html';
           return false; 
         }
         bitonic.onclick = function() { 
           localStorage['archiveID'] = bitonicTab[0];
           localStorage['header'] = bitonicTab[1];
-          window.location.href = 'wine_table.html';
+          window.location.href = 'archive.html';
           return false; 
         }
         mpp.onclick = function() { 
           localStorage['archiveID'] = mppTab[0];
           localStorage['header'] = mppTab[1];
-          window.location.href = 'wine_table.html';
+          window.location.href = 'archive.html';
           return false; 
         }
       }

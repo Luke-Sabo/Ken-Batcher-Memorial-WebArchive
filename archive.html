@@ -1,66 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="To Memorialize the life and work of Kenneth E. Batcher">
-	  <meta name="keywords" content="mpp, goodyear, aerospace, aspro, staran, Ken Batcher, Kenneth E. Batcher, MPP, Massively Parallel Processor, bitonic">
-  	<meta name="author" content="Capstone Group">
-    <title>Ken Batcher Memorial Archive | Temporary Archive</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Batcher Archive</title>
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link href="css/archive.css" rel="stylesheet" />
   </head>
-  <body>
-    <header>
-      <div class="container">
-        <div id="welcome">
-          <h1><span class="highlight">Ken Batcher</span> Memorial Archive</h1>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="bio.html">Biography</a></li>
-            <li class="current"><a href="archive.html">Temporary Archive</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
 
-    <section id="newsletter">
-      <div class="container">
-        <h1>Subscribe To Our Newsletter</h1>
-        <form>
-          <input type="email" placeholder="Enter Email...">
-          <button type="submit" class="button_1">Subscribe</button>
-        </form>
-      </div>
-    </section>
-
-    <section id="main">
-      <div class="container">
-        <article id="main-col">
-          <h1 class="page-title">Temporary Archive</h1>
-          <ul id="archive">
-            <li>
-              <h3>Massively Parallel Processor</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies at, vulputate id lorem. Nulla facilisi.</p>
-						  
-            </li>
-            <li>
-              <h3>STARAN</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies at, vulputate id lorem. Nulla facilisi.</p>
-						  
-            </li>
-            <li>
-              <h3>ASPRO</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies at, vulputate id lorem. Nulla facilisi.</p>
-						  
-            </li>
-          </ul>
-        </article>
-    </section>
-
-    <footer>
-      <p>Kent State University, Copyright &copy; 2020</p>
-    </footer>
+  <body onload="tab(localStorage['archiveID'], localStorage['header']);">
+    <div id="root"></div>
+    <script src="scripts/archive.js"></script>
+    <h1 class="header">Batcher Archive</h1>
+    <p class="tabHeader">
+      <button class="tab" onclick="tab(staranTab[0], staranTab[1]);">STARAN</button>
+      <button class="tab" onclick="tab(bitonicTab[0], bitonicTab[1]);">ASPRO</button>
+      <button class="tab" onclick="tab(mppTab[0], mppTab[1]);">MPP</button>
+      <button class="searchButton" onclick="search();">Search</button>
+      <input class="searchBar" type="text" id="searchTextBox"/>
+    </p>
+    <table id="searchResults"  border="1" cellpadding="2" > </table>
+    <h2 class="tabTitle" id="header"></h2>
+    <table id="myTableData"  border="1" cellpadding="2" > </table>
   </body>
 </html>
