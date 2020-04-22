@@ -1,30 +1,36 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 // GLOBAL VARIABLES
-////////////////////////////////////////
 var currentArchiveAddress = 'https://oaks.kent.edu/api/v1/collections/53';
 
 // [archiveID, header]
 var staranTab = [53, 'STARAN'];
 var bitonicTab = [4, 'ASPRO'];
 var mppTab = [47, 'MPP'];
+var tabList = [staranTab, bitonicTab, mppTab];
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // FUNCTIONS
 ////////////////////////////////////////
 // function to create table from parsed json
-createTable = function(tableID, data)
+createTable = function(tableID, data, append)
 {
     // grab table id
     var myTableDiv = document.getElementById(tableID);
-            
-    var table = document.createElement('TABLE');
-    table.border = '1';
     
-    var tableBody = document.createElement('TBODY');
-    table.appendChild(tableBody);
-    
+    var table, tableBody;
+    if (append)
+        tableBody = document.getElementById('results');
+    else 
+    {
+        table = document.createElement('TABLE');
+        table.border = '1';
+        tableBody = document.createElement('TBODY');
+        tableBody.id = 'results';
+        table.appendChild(tableBody);
+    }
+
     // column titles
     var columns = ['#', 'Title', 'Authors', 'Date', 'Link'];
 
@@ -34,13 +40,16 @@ createTable = function(tableID, data)
     // create columns titles
     var tr = document.createElement('TR');
     tableBody.appendChild(tr);
-    for (var j = 0; j < columns.length; ++j)
+    for (var j = 0; j < columns.length && !append; ++j)
     {
         var td = document.createElement('TD');
         td.width = '50';
         td.appendChild(document.createTextNode(columns[j]));
         tr.appendChild(td);
     }
+
+    // sort data by date
+    data.rows.sort((a, b) => (a.date > b.date) ? 1 : -1)
 
     // insert data from json to table
     for (var i = 0; i < data.rows.length; ++i)
@@ -87,7 +96,8 @@ createTable = function(tableID, data)
     }
 
     // add created table
-    myTableDiv.appendChild(table);      
+    if (!append)
+        myTableDiv.appendChild(table);      
 }
 
 ////////////////////////////////////////
@@ -98,24 +108,30 @@ function search()
     var val = document.getElementById('searchTextBox').value;
     if (val == '') return;
 
-    // create GET request
-    var searchReq = new XMLHttpRequest();
-    searchReq.open('GET', currentArchiveAddress + '/' + val, false);
-    searchReq.send();
+    // clear any past results
+    document.getElementById('searchResults').innerHTML = '<h2>Results</h2>';
 
-    // convert json string to object
-    var data = JSON.parse(searchReq.responseText);
+    // get base address
+    baseAddress = currentArchiveAddress.slice(0, 41);
 
-    // check data has been recieved
-    if (searchReq.status >= 200 && searchReq.status < 400) 
+    for (var i = 0; i < tabList.length; ++i)
     {
-        document.getElementById('searchResults').innerHTML = '<h2>Results</h2>';
-        createTable('searchResults', data);
-    }
-    else 
-    {
-		const errorMessage = document.createElement('marquee');
-		errorMessage.textContent = 'Error';
+        // create GET request
+        var searchReq = new XMLHttpRequest();
+        searchReq.open('GET', baseAddress + tabList[i][0] + '/' + val, false);
+        searchReq.send();
+
+        // convert json string to object
+        var data = JSON.parse(searchReq.responseText);
+
+        // check data has been recieved
+        if (searchReq.status >= 200 && searchReq.status < 400) 
+            createTable('searchResults', data, i != 0);
+        else 
+        {
+            const errorMessage = document.createElement('marquee');
+            errorMessage.textContent = 'Error';
+        }
     }
 }
 
@@ -154,7 +170,7 @@ function tab(archiveID, header)
         document.getElementById('myTableData').innerHTML = '';
 
         // make new table from current archive
-        createTable('myTableData', data);
+        createTable('myTableData', data, false);
     }
     else 
     {
